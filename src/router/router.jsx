@@ -4,7 +4,12 @@ import Home from "../pages/Home/Home/Home";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/authentication/Login";
 import RegisterPage from "../pages/authentication/Register";
-import About from "../pages/Home/Home/About";
+import Membership from "../pages/Home/Home/Membership";
+import PrivateRoute from "../routes/PrivateRoute";
+import DashboardLayout from "../layouts/DashboardLayout";
+import MyProfile from "../pages/Dashboard/MyProfile";
+import AddPost from "../pages/Dashboard/AddPost";
+import MyPost from "../pages/Dashboard/MyPost";
 
 
 export const router = createBrowserRouter([
@@ -17,8 +22,8 @@ export const router = createBrowserRouter([
             Component: Home
         },
         {
-            path: 'about',
-            Component: About
+            path: 'membership',
+            Component: Membership
         }
     ]
   },
@@ -38,5 +43,26 @@ export const router = createBrowserRouter([
         }
         
     ]
+  },
+
+
+  {
+    path: '/dashboard',
+    element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+    children: [
+      {
+        path: 'myProfile',
+        element: <MyProfile></MyProfile>
+      },
+      {
+        path: 'addPost',
+        element: <AddPost></AddPost>
+      },
+      {
+        path: 'myPost',
+        element: <MyPost></MyPost>
+      }
+    ]
   }
+
 ]);
