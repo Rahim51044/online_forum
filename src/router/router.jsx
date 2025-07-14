@@ -10,6 +10,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import MyProfile from "../pages/Dashboard/MyProfile";
 import AddPost from "../pages/Dashboard/AddPost";
 import MyPost from "../pages/Dashboard/MyPost";
+import PostDetails from "../pages/Home/Home/PostDetails";
 
 
 export const router = createBrowserRouter([
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
         {
             path: 'membership',
             Component: Membership
+        },
+        {
+          path: 'post/:id',
+          element: <PostDetails></PostDetails>
         }
     ]
   },
