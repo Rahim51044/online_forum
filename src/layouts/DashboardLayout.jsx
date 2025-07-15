@@ -221,6 +221,8 @@ const DashboardLayout = () => {
           >
             <FaClipboardList /> My Posts
           </NavLink>
+          <NavLink to="/dashboard/warn-history">⚠️ Warn History</NavLink>
+
 
           {/* ✅ Admin-only routes */}
           {role === "admin" && (

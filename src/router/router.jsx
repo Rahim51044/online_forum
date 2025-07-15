@@ -16,6 +16,8 @@ import AdminProfile from "../pages/Admin/AdminProfile";
 import ManageUsers from "../pages/Admin/ManageUsers";
 import ReportedContent from "../pages/Admin/ReportedContent";
 import MakeAnnouncement from "../pages/Home/Home/MakeAnnouncement";
+import CommentsPage from "../pages/Dashboard/CommentsPage";
+import WarnHistory from "../pages/Dashboard/WarnHistory";
 
 
 export const router = createBrowserRouter([
@@ -34,7 +36,12 @@ export const router = createBrowserRouter([
         {
           path: 'post/:id',
           element: <PostDetails></PostDetails>
-        }
+        },
+        {
+        path: 'comments/:postId',
+        element: <CommentsPage></CommentsPage>
+      }
+       
     ]
   },
 
@@ -72,6 +79,12 @@ export const router = createBrowserRouter([
         path: 'myPost',
         element: <MyPost></MyPost>
       },
+      {
+  path: "warn-history",
+  element: <PrivateRoute><WarnHistory /></PrivateRoute>,
+},
+      
+      
 
        // ✅ Admin-only routes
     {
