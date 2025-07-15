@@ -9,6 +9,7 @@ import { FaBell } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import NotificationIcon from "../pages/Dashboard/NotificationIcon";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -71,12 +72,13 @@ const Navbar = () => {
       <div className="navbar-end flex items-center gap-4">
         {/* 🔔 Notification */}
         <div className="relative">
-          <FaBell className="text-xl" />
+          {/* <FaBell className="text-xl" />
           {countData?.count > 0 && (
             <span className="badge badge-sm badge-error absolute -top-2 -right-2">
               {countData.count}
             </span>
-          )}
+          )} */}
+          <NotificationIcon></NotificationIcon>
         </div>
 
         {/* 🔐 Auth Check */}
