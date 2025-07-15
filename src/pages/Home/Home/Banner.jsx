@@ -200,7 +200,7 @@ const Banner = ({ onSearchResults }) => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           {suggestions.length > 0 && (
-            <ul className="absolute z-10 w-full bg-white border rounded shadow mt-1 text-left">
+            <ul className="absolute z-10 w-full bg-green-500 border rounded shadow mt-1 text-left">
               {suggestions.map((tag, i) => (
                 <li
                   key={i}

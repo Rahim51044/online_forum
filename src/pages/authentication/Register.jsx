@@ -175,10 +175,12 @@ import { FaUser, FaEnvelope, FaLock, FaImage } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import GoogleLogin from "./googleLogin";
+import useAxios from "../../hooks/useAxios";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosInstance = useAxios()
   const from = location.state?.from?.pathname || "/";
 
   const { createUser, updateUserProfile } = useAuth();
@@ -194,13 +196,27 @@ const RegisterPage = () => {
 
   const onSubmit = (data) => {
     createUser(data.email, data.password)
-      .then((result) => {
+      .then(async(result) => {
         console.log(result.user);
         const userProfile = {
           displayName: data.name,
           photoURL: data.photoURL,
         };
 
+        // update user info in the database
+        const userInfo = {
+          email: data.email,
+          role: "user",
+          created_at: new Date().toISOString(),
+          last_log_in: new Date().toISOString()
+        }
+
+        const userRes = await axiosInstance.post('/users', userInfo)
+        console.log(userRes);
+
+
+
+        // update user profile
         updateUserProfile(userProfile)
           .then(() => {
             console.log("✅ Profile updated!");

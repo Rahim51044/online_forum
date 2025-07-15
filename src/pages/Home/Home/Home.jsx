@@ -117,8 +117,7 @@ import Banner from "./Banner";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import PostCard from "../../../components/PostCard";
 import TagsSection from "./TagsSection";
-import AnnouncementSection from "../../Dashboard/AnnouncementSection";
-import MakeAnnouncement from "../../Dashboard/MakeAnnouncement";
+
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -156,8 +155,8 @@ const Home = () => {
       <TagsSection onTagClick={handleTagClick} />
 
       {/* announment section */}
-      <AnnouncementSection></AnnouncementSection>
-      <MakeAnnouncement></MakeAnnouncement>
+      {/* <AnnouncementSection></AnnouncementSection> */}
+      {/* <MakeAnnouncement></MakeAnnouncement> */}
 
       {/* Search Results */}
       {searchResults.length > 0 && (

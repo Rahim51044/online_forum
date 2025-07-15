@@ -1,17 +1,30 @@
 import React from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
+import useAxios from '../../hooks/useAxios';
 
 const GoogleLogin = () => {
     const {googleLogin} = useAuth();
     const navigate = useNavigate();
   const location = useLocation();
+  const axiosInstance = useAxios()
   const from = location.state?.from?.pathname || "/"; // default: home
 
     const handleGoogleLogin = () => {
         googleLogin()
-        .then(result => {
+        .then(async(result) => {
+            const user = result.user;
             console.log(result.user);
+             // update user info in the database
+        const userInfo = {
+          email: user.email,
+          role: "user",
+          created_at: new Date().toISOString(),
+          last_log_in: new Date().toISOString()
+        }
+        const userRes = await axiosInstance.post('/users', userInfo)
+        console.log('user update info', userRes);
+
             navigate(from, { replace: true });
         })
         .catch(error => {

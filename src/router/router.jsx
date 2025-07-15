@@ -11,6 +11,12 @@ import MyProfile from "../pages/Dashboard/MyProfile";
 import AddPost from "../pages/Dashboard/AddPost";
 import MyPost from "../pages/Dashboard/MyPost";
 import PostDetails from "../pages/Home/Home/PostDetails";
+import AdminRoute from "../routes/AdminRoute";
+import AdminProfile from "../pages/Admin/AdminProfile";
+import ManageUsers from "../pages/Admin/ManageUsers";
+import ReportedContent from "../pages/Admin/ReportedContent";
+import MakeAnnouncement from "../pages/Home/Home/MakeAnnouncement";
+import MakeAdmin from "../pages/Admin/MakeAdmin";
 
 
 export const router = createBrowserRouter([
@@ -66,7 +72,29 @@ export const router = createBrowserRouter([
       {
         path: 'myPost',
         element: <MyPost></MyPost>
-      }
+      },
+
+       // ✅ Admin-only routes
+    {
+      path: 'adminProfile',
+      element: <AdminRoute><AdminProfile /></AdminRoute>
+    },
+    {
+      path: 'manageUsers',
+      element: <AdminRoute><ManageUsers /></AdminRoute>
+    },
+    {
+      path: 'reported',
+      element: <AdminRoute><ReportedContent /></AdminRoute>
+    },
+    {
+      path: 'announcement',
+      element: <AdminRoute><MakeAnnouncement /></AdminRoute>
+    },
+    {
+      path: 'makeAdmin',
+      element: <MakeAdmin></MakeAdmin>
+    }
     ]
   }
 
