@@ -97,27 +97,40 @@ const MyPost = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // const fetchMyPosts = async () => {
+    //   try {
+    //     const res = await axiosSecure.get(`/posts?email=${user?.email}`);
+    //     console.log("My Posts API Response:", res.data);
+
+    //     // Check if response has 'posts' field or is directly array
+    //     if (Array.isArray(res.data)) {
+    //       setPosts(res.data); // direct array
+    //     } else if (Array.isArray(res.data.posts)) {
+    //       setPosts(res.data.posts); // object with posts field
+    //     } else {
+    //       setPosts([]); // fallback
+    //     }
+
+    //   } catch (err) {
+    //     console.error("Error fetching user's posts:", err);
+    //     setPosts([]);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
+
     const fetchMyPosts = async () => {
-      try {
-        const res = await axiosSecure.get(`/posts?email=${user?.email}`);
-        console.log("My Posts API Response:", res.data);
+  try {
+    const res = await axiosSecure.get(`/posts/user?email=${user?.email}`);
+    setPosts(res.data || []);
+  } catch (err) {
+    console.error("Error fetching user's posts:", err);
+    setPosts([]);
+  } finally {
+    setLoading(false);
+  }
+};
 
-        // Check if response has 'posts' field or is directly array
-        if (Array.isArray(res.data)) {
-          setPosts(res.data); // direct array
-        } else if (Array.isArray(res.data.posts)) {
-          setPosts(res.data.posts); // object with posts field
-        } else {
-          setPosts([]); // fallback
-        }
-
-      } catch (err) {
-        console.error("Error fetching user's posts:", err);
-        setPosts([]);
-      } finally {
-        setLoading(false);
-      }
-    };
 
     if (user?.email) {
       fetchMyPosts();
