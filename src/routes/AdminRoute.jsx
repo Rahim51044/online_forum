@@ -11,7 +11,7 @@ const AdminRoute = ({ children }) => {
   const axiosSecure = useAxiosSecure();
 
   // Check if user is admin
-  const { data: isAdmin, isLoading: isAdminLoading } = useQuery({
+  const { isLoading: isAdminLoading } = useQuery({
     queryKey: ["isAdmin", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -28,9 +28,7 @@ const AdminRoute = ({ children }) => {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-//   if (!isAdmin) {
-//     return <Navigate to="/" replace />;
-//   }
+
 
   return children;
 };

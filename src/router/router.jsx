@@ -16,7 +16,6 @@ import AdminProfile from "../pages/Admin/AdminProfile";
 import ManageUsers from "../pages/Admin/ManageUsers";
 import ReportedContent from "../pages/Admin/ReportedContent";
 import MakeAnnouncement from "../pages/Home/Home/MakeAnnouncement";
-import MakeAdmin from "../pages/Admin/MakeAdmin";
 
 
 export const router = createBrowserRouter([
@@ -91,10 +90,7 @@ export const router = createBrowserRouter([
       path: 'announcement',
       element: <AdminRoute><MakeAnnouncement /></AdminRoute>
     },
-    {
-      path: 'makeAdmin',
-      element: <MakeAdmin></MakeAdmin>
-    }
+   
     ]
   }
 
