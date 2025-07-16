@@ -1,70 +1,19 @@
-// import { useState } from "react";
-// import useAxiosSecure from "../../../hooks/useAxiosSecure";
-// import PostCard from "../../../components/PostCard";
 
-// const Banner = () => {
-//   const [searchTerm, setSearchTerm] = useState("");
-//   const [searchResults, setSearchResults] = useState([]);
-//   const axiosSecure = useAxiosSecure(); // 🔐 Secure axios instance
 
-//   const handleSearch = async (e) => {
-//     e.preventDefault();
-//     if (!searchTerm.trim()) return;
 
-//     try {
-//       const res = await axiosSecure.get(`/posts/search?tag=${searchTerm}`);
-//       setSearchResults(res.data || []);
-//     } catch (err) {
-//       console.error("Search failed:", err);
-//     }
-//   };
-
-//   return (
-//     <div className="bg-blue-500 py-10 px-4 text-center">
-//       <h1 className="text-3xl font-bold mb-4">Search Posts by Tag</h1>
-//       <form onSubmit={handleSearch} className="max-w-md mx-auto flex">
-//         <input
-//           type="text"
-//           placeholder="Search by tag..."
-//           className="input input-bordered w-full rounded-l-md"
-//           value={searchTerm}
-//           onChange={(e) => setSearchTerm(e.target.value)}
-//         />
-//         <button type="submit" className="btn btn-primary rounded-l-none">
-//           Search
-//         </button>
-//       </form>
-
-//       {searchResults.length > 0 && (
-//         <div className="mt-10">
-//           <h2 className="text-xl font-semibold mb-4">Search Results:</h2>
-//           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-//             {searchResults.map((post) => (
-//               <PostCard key={post._id} post={post} />
-//             ))}
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Banner;
 
 
 
 
 // import { useEffect, useState } from "react";
-// import PostCard from "../../../components/PostCard";
 // import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-// const Banner = () => {
+// const Banner = ({ onSearchResults }) => {
 //   const [searchTerm, setSearchTerm] = useState("");
 //   const [suggestions, setSuggestions] = useState([]);
-//   const [searchResults, setSearchResults] = useState([]);
 //   const axiosSecure = useAxiosSecure();
 
-//   // 🔍 Fetch tag suggestions when typing
+//   // 🔍 Fetch suggestions
 //   useEffect(() => {
 //     const fetchSuggestions = async () => {
 //       if (searchTerm.trim() === "") return setSuggestions([]);
@@ -78,7 +27,7 @@
 
 //     const delayDebounce = setTimeout(() => {
 //       fetchSuggestions();
-//     }, 300); // debounce delay
+//     }, 300);
 
 //     return () => clearTimeout(delayDebounce);
 //   }, [searchTerm, axiosSecure]);
@@ -86,10 +35,11 @@
 //   const handleSearch = async (e) => {
 //     e.preventDefault();
 //     if (!searchTerm.trim()) return;
+
 //     try {
 //       const res = await axiosSecure.get(`/posts/search?tag=${searchTerm}`);
-//       setSearchResults(res.data || []);
-//       setSuggestions([]); // clear dropdown after search
+//       onSearchResults(res.data || []);
+//       setSuggestions([]);
 //     } catch (err) {
 //       console.error("Search failed:", err);
 //     }
@@ -108,7 +58,7 @@
 //             onChange={(e) => setSearchTerm(e.target.value)}
 //           />
 //           {suggestions.length > 0 && (
-//             <ul className="absolute z-10 w-full bg-white border rounded shadow mt-1 text-left">
+//             <ul className="absolute z-10 w-full bg-green-500 border rounded shadow mt-1 text-left">
 //               {suggestions.map((tag, i) => (
 //                 <li
 //                   key={i}
@@ -125,22 +75,12 @@
 //           Search
 //         </button>
 //       </form>
-
-//       {searchResults.length > 0 && (
-//         <div className="mt-10">
-//           <h2 className="text-xl font-semibold mb-4">Search Results:</h2>
-//           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-//             {searchResults.map((post) => (
-//               <PostCard key={post._id} post={post} />
-//             ))}
-//           </div>
-//         </div>
-//       )}
 //     </div>
 //   );
 // };
 
 // export default Banner;
+
 
 
 
@@ -155,7 +95,7 @@ const Banner = ({ onSearchResults }) => {
   const [suggestions, setSuggestions] = useState([]);
   const axiosSecure = useAxiosSecure();
 
-  // 🔍 Fetch suggestions
+  // Fetch suggestions with debounce
   useEffect(() => {
     const fetchSuggestions = async () => {
       if (searchTerm.trim() === "") return setSuggestions([]);
@@ -188,37 +128,77 @@ const Banner = ({ onSearchResults }) => {
   };
 
   return (
-    <div className="bg-blue-500 py-10 px-4 text-center relative">
-      <h1 className="text-3xl font-bold mb-4">Search Posts by Tag</h1>
-      <form onSubmit={handleSearch} className="max-w-md mx-auto flex">
-        <div className="relative w-full">
-          <input
-            type="text"
-            placeholder="Search by tag..."
-            className="input input-bordered w-full rounded-l-md"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+    <div className="relative bg-gray-900 text-white">
+      {/* Carousel Section */}
+      <div className="carousel w-full h-[400px]">
+        <div id="slide1" className="carousel-item relative w-full">
+          <img
+            src="https://assets.hongkiat.com/uploads/freelancers-why-join-online-forums/online-forum.jpg"
+            className="w-full object-cover"
           />
-          {suggestions.length > 0 && (
-            <ul className="absolute z-10 w-full bg-green-500 border rounded shadow mt-1 text-left">
-              {suggestions.map((tag, i) => (
-                <li
-                  key={i}
-                  className="px-3 py-1 hover:bg-blue-100 cursor-pointer"
-                  onClick={() => setSearchTerm(tag)}
-                >
-                  {tag}
-                </li>
-              ))}
-            </ul>
-          )}
+          <div className="absolute left-5 right-5 top-1/2 transform -translate-y-1/2 flex justify-between">
+            <a href="#slide3" className="btn btn-circle">❮</a>
+            <a href="#slide2" className="btn btn-circle">❯</a>
+          </div>
         </div>
-        <button type="submit" className="btn btn-primary rounded-l-none">
-          Search
-        </button>
-      </form>
+
+        <div id="slide2" className="carousel-item relative w-full">
+          <img
+            src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80"
+            className="w-full object-cover"
+          />
+          <div className="absolute left-5 right-5 top-1/2 transform -translate-y-1/2 flex justify-between">
+            <a href="#slide1" className="btn btn-circle">❮</a>
+            <a href="#slide3" className="btn btn-circle">❯</a>
+          </div>
+        </div>
+
+        <div id="slide3" className="carousel-item relative w-full">
+          <img
+            src="https://images.unsplash.com/photo-1605379399642-870262d3d051?auto=format&fit=crop&w=1600&q=80"
+            className="w-full object-cover"
+          />
+          <div className="absolute left-5 right-5 top-1/2 transform -translate-y-1/2 flex justify-between">
+            <a href="#slide2" className="btn btn-circle">❮</a>
+            <a href="#slide1" className="btn btn-circle">❯</a>
+          </div>
+        </div>
+      </div>
+
+      {/* Search Section */}
+      <div className="bg-blue-600 py-10 px-4 text-center">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4">Search Posts by Tag</h1>
+        <form onSubmit={handleSearch} className="max-w-md mx-auto flex">
+          <div className="relative w-full">
+            <input
+              type="text"
+              placeholder="Search by tag..."
+              className="input input-bordered w-full rounded-l-md"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            {suggestions.length > 0 && (
+              <ul className="absolute z-10 w-full bg-white text-black border rounded shadow mt-1 text-left max-h-48 overflow-y-auto">
+                {suggestions.map((tag, i) => (
+                  <li
+                    key={i}
+                    className="px-3 py-1 hover:bg-blue-100 cursor-pointer"
+                    onClick={() => setSearchTerm(tag)}
+                  >
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <button type="submit" className="btn btn-primary rounded-l-none">
+            Search
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
 
 export default Banner;
+

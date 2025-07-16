@@ -96,6 +96,8 @@
 // export default MyProfile;
 
 
+
+
 // src/pages/MyProfile.jsx
 import { useQuery } from "@tanstack/react-query";
 import { FaMedal } from "react-icons/fa";
@@ -119,7 +121,8 @@ const MyProfile = () => {
     queryKey: ["recent-posts", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/posts/user?email=${user.email}&limit=3`);
-      return res.data.slice(0, 3);
+      // backend e posts object এ থাকলে adjust করো, এখানে ধরে নিচ্ছি সরাসরি array
+      return res.data.posts || res.data;
     },
     enabled: !!user?.email,
   });
@@ -128,6 +131,7 @@ const MyProfile = () => {
     <div className="p-6 max-w-4xl mx-auto text-white">
       <h2 className="text-3xl font-bold mb-4">My Profile</h2>
 
+      {/* Profile Info */}
       <div className="flex items-center gap-6 bg-gray-800 p-4 rounded-lg mb-6">
         <img
           src={user?.photoURL || "/avatar.png"}
@@ -151,20 +155,37 @@ const MyProfile = () => {
         </div>
       </div>
 
+      {/* Recent Posts */}
       <div>
         <h3 className="text-2xl font-semibold mb-4">My Recent Posts</h3>
         {posts.length > 0 ? (
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-6">
             {posts.map((post) => (
-              <div key={post._id} className="card bg-base-200 shadow-xl">
-                <div className="card-body">
-                  <h2 className="card-title">{post.title}</h2>
-                  <p className="text-sm text-gray-400">Tag: #{post.tag}</p>
-                  <p className="text-gray-100 whitespace-pre-line">{post.content}</p>
-                  <div className="card-actions justify-end mt-4">
-                    <span className="badge badge-outline">Comments: {post.commentCount || 0}</span>
-                    <span className="badge badge-outline">UpVote: {post.upVote || 0}</span>
-                    <span className="badge badge-outline">DownVote: {post.downVote || 0}</span>
+              <div
+                key={post._id}
+                className="bg-gray-900 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+              >
+                <div className="p-5">
+                  <h2
+                    className="text-2xl font-semibold mb-2 text-white truncate"
+                    title={post.title}
+                  >
+                    {post.title}
+                  </h2>
+                  <p className="text-indigo-400 text-sm mb-2">Tag: #{post.tag}</p>
+                  <p className="text-gray-300 mb-4 line-clamp-3 whitespace-pre-line">
+                    {post.content || post.description || "No description available."}
+                  </p>
+                  <div className="flex justify-between items-center text-gray-400 text-sm font-medium">
+                    <span>💬 {post.commentCount || 0} Comments</span>
+                    <div className="flex space-x-3">
+                      <span className="flex items-center gap-1 text-green-400">
+                        👍 {post.upVote || 0}
+                      </span>
+                      <span className="flex items-center gap-1 text-red-400">
+                        👎 {post.downVote || 0}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -179,4 +200,3 @@ const MyProfile = () => {
 };
 
 export default MyProfile;
-

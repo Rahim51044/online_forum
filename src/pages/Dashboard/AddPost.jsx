@@ -2,6 +2,11 @@
 
 
 
+
+
+
+
+
 // import { useEffect, useState } from "react";
 // import { useForm } from "react-hook-form";
 // import Select from "react-select";
@@ -10,23 +15,14 @@
 // import useAuth from "../../hooks/useAuth";
 // import useAxiosSecure from "../../hooks/useAxiosSecure";
 
-// const tagOptions = [
-//   { value: "technology", label: "Technology" },
-//   { value: "education", label: "Education" },
-//   { value: "lifestyle", label: "Lifestyle" },
-//   { value: "news", label: "News" },
-//   { value: "health", label: "Health" },
-//   { value: "sports", label: "Sports" },
-//   { value: "finance", label: "Finance" },
-//   { value: "travel", label: "Travel" },
-// ];
-
 // const AddPost = () => {
 //   const { user } = useAuth();
 //   const axiosSecure = useAxiosSecure();
 //   const navigate = useNavigate();
+
 //   const [postCount, setPostCount] = useState(0);
 //   const [isLoading, setIsLoading] = useState(true);
+//   const [tagOptions, setTagOptions] = useState([]);
 //   const [selectedTag, setSelectedTag] = useState(null);
 
 //   const {
@@ -36,6 +32,25 @@
 //     formState: { errors },
 //   } = useForm();
 
+//   // Backend থেকে ট্যাগগুলো ফেচ করা
+//   useEffect(() => {
+//     const fetchTags = async () => {
+//       try {
+//         const res = await axiosSecure.get("/tags");
+//         const options = res.data.map(tag => ({
+//           value: tag.name,
+//           label: tag.name.charAt(0).toUpperCase() + tag.name.slice(1),
+//         }));
+//         setTagOptions(options);
+//       } catch (err) {
+//         console.error("Failed to fetch tags", err);
+//       }
+//     };
+
+//     fetchTags();
+//   }, [axiosSecure]);
+
+//   // User এর পোস্টের সংখ্যা ফেচ করা
 //   useEffect(() => {
 //     const fetchPostCount = async () => {
 //       try {
@@ -188,11 +203,6 @@
 
 
 
-
-
-
-
-
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
@@ -218,7 +228,6 @@ const AddPost = () => {
     formState: { errors },
   } = useForm();
 
-  // Backend থেকে ট্যাগগুলো ফেচ করা
   useEffect(() => {
     const fetchTags = async () => {
       try {
@@ -232,11 +241,9 @@ const AddPost = () => {
         console.error("Failed to fetch tags", err);
       }
     };
-
     fetchTags();
   }, [axiosSecure]);
 
-  // User এর পোস্টের সংখ্যা ফেচ করা
   useEffect(() => {
     const fetchPostCount = async () => {
       try {
@@ -248,7 +255,6 @@ const AddPost = () => {
         setIsLoading(false);
       }
     };
-
     if (user?.email) {
       fetchPostCount();
     }
@@ -299,55 +305,69 @@ const AddPost = () => {
     }
   };
 
-  if (isLoading) return <div className="text-center py-10">Loading...</div>;
+  if (isLoading) return <div className="text-center py-10 text-white">Loading...</div>;
 
   return (
-    <div className="max-w-3xl mx-auto bg-gray-500 p-8 rounded shadow">
-      <h2 className="text-2xl font-bold mb-6">Add New Post</h2>
+    <div className="max-w-3xl mx-auto bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-700 text-white">
+      <h2 className="text-3xl font-bold mb-8 text-center text-blue-400">Add New Post</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* Author Info */}
         <div>
-          <label className="font-medium">Author Name</label>
+          <label className="font-semibold block mb-1">Author Name</label>
           <input
             type="text"
             value={user?.displayName}
             readOnly
-            className="w-full mt-1 border p-2 rounded bg-gray-700"
+            className="w-full rounded-md bg-gray-800 border border-gray-700 px-3 py-2 text-gray-300"
           />
         </div>
 
         <div>
-          <label className="font-medium">Author Email</label>
+          <label className="font-semibold block mb-1">Author Email</label>
           <input
             type="email"
             value={user?.email}
             readOnly
-            className="w-full mt-1 border p-2 rounded bg-gray-700"
+            className="w-full rounded-md bg-gray-800 border border-gray-700 px-3 py-2 text-gray-300"
           />
         </div>
 
+        {/* Title */}
         <div>
-          <label className="font-medium">Post Title</label>
+          <label className="font-semibold block mb-1">Post Title</label>
           <input
             type="text"
-            {...register("title", { required: true })}
-            className="w-full mt-1 border p-2 rounded"
+            {...register("title", { required: "Title is required" })}
+            className={`w-full rounded-md px-3 py-2 border ${
+              errors.title ? "border-red-500" : "border-gray-700"
+            } bg-gray-800 text-white`}
+            placeholder="Enter post title"
           />
-          {errors.title && <p className="text-red-500">Title is required</p>}
+          {errors.title && (
+            <p className="text-red-500 mt-1 text-sm">{errors.title.message}</p>
+          )}
         </div>
 
+        {/* Description */}
         <div>
-          <label className="font-medium">Post Description</label>
+          <label className="font-semibold block mb-1">Post Description</label>
           <textarea
             rows={5}
-            {...register("description", { required: true })}
-            className="w-full mt-1 border p-2 rounded"
+            {...register("description", { required: "Description is required" })}
+            className={`w-full rounded-md px-3 py-2 border ${
+              errors.description ? "border-red-500" : "border-gray-700"
+            } bg-gray-800 text-white resize-none`}
+            placeholder="Write your post description here..."
           ></textarea>
-          {errors.description && <p className="text-red-500">Description is required</p>}
+          {errors.description && (
+            <p className="text-red-500 mt-1 text-sm">{errors.description.message}</p>
+          )}
         </div>
 
+        {/* Tag Select */}
         <div>
-          <label className="font-medium block mb-1">Select Tag</label>
+          <label className="font-semibold block mb-2">Select Tag</label>
           <Select
             options={tagOptions}
             value={selectedTag}
@@ -360,6 +380,7 @@ const AddPost = () => {
                 backgroundColor: "#1f2937",
                 borderColor: "#374151",
                 color: "#fff",
+                minHeight: "40px",
               }),
               singleValue: (base) => ({ ...base, color: "white" }),
               menu: (base) => ({ ...base, backgroundColor: "#1f2937", color: "#fff" }),
@@ -367,15 +388,18 @@ const AddPost = () => {
                 ...base,
                 backgroundColor: state.isFocused ? "#374151" : "#1f2937",
                 color: "white",
+                cursor: "pointer",
               }),
+              placeholder: (base) => ({ ...base, color: "#9ca3af" }),
             }}
           />
         </div>
 
+        {/* Submit Button */}
         <div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            className="w-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-3 rounded-md"
           >
             Add Post
           </button>
