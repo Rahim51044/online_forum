@@ -148,7 +148,7 @@ const Home = () => {
   if (isLoading) return <p className="text-center">Loading...</p>;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <Banner onSearchResults={setSearchResults} />
 
       {/* Tag List Section */}
@@ -161,7 +161,7 @@ const Home = () => {
       {/* Search Results */}
       {searchResults.length > 0 && (
         <div className="mt-10">
-          <h2 className="text-2xl font-bold mb-4">Search Results:</h2>
+          <h2 className="text-5xl text-orange-500 text-center font-bold mb-4">Search Results:</h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {searchResults.map((post) => (
               <PostCard key={post._id} post={post} />
@@ -171,11 +171,11 @@ const Home = () => {
       )}
 
       {/* Default Post List */}
-      <div className="flex justify-between mb-6 mt-10">
-        <h2 className="text-3xl font-bold">Recent Posts</h2>
-        <button
+      <div className=" mb-6 mt-10">
+        <h2 className="text-5xl text-orange-500 text-center font-bold">Recent Posts</h2>
+        <button 
           onClick={() => setSortByPopularity(!sortByPopularity)}
-          className="btn btn-secondary"
+          className="btn btn-secondary flex justify-between mx-auto mt-5"
         >
           Sort by Popularity
         </button>

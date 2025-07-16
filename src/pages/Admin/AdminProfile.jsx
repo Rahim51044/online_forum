@@ -264,7 +264,7 @@ const AdminProfile = () => {
             type="text"
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}
-            className="input input-bordered w-full text-black"
+            className="input input-bordered w-full text-gray-100"
             placeholder="Enter new tag"
           />
           <button className="btn btn-primary w-full md:w-auto" type="submit">

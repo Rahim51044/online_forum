@@ -246,7 +246,8 @@ const PostDetails = () => {
             </button>
           </div>
           <FacebookShareButton url={shareUrl} quote={title}>
-            <FacebookIcon size={32} round />
+            {/* <FacebookIcon size={32} round /> */}
+            <button className="btn btn-primary">Share</button>
           </FacebookShareButton>
         </div>
 
@@ -256,10 +257,10 @@ const PostDetails = () => {
 
           {user ? (
             <div className="mb-6">
-              <textarea
+              <textarea 
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
-                className="textarea textarea-bordered w-full text-black"
+                className="textarea textarea-bordered w-full text-gray-200"
                 placeholder="Write your comment..."
               />
               <button
