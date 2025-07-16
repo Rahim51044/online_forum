@@ -3,7 +3,7 @@
 // import useAuth from './useAuth';
 
 // const axiosSecure = axios.create({
-//     baseURL: `http://localhost:5000`
+//     baseURL: `https://online-forum-server-eta.vercel.app`
 // })
 
 // const useAxiosSecure = () => {
@@ -28,14 +28,13 @@ import { useEffect } from 'react';
 import useAuth from './useAuth';
 
 const axiosSecure = axios.create({
-  baseURL: `http://localhost:5000`
+  baseURL: `https://online-forum-server-eta.vercel.app`
 });
 
 const useAxiosSecure = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    // যদি user না থাকে, কিছু না করেই return
     if (!user) return;
 
     const setInterceptor = async () => {
