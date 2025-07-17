@@ -15,7 +15,6 @@ const GoogleLogin = () => {
         .then(async(result) => {
             const user = result.user;
             console.log(result.user);
-             // update user info in the database
         const userInfo = {
           email: user.email,
           role: "user",
