@@ -143,7 +143,7 @@ const MakeAnnouncement = () => {
           <p className="text-red-400 text-sm -mt-2">{errors.description.message}</p>
         )}
 
-        {/* Submit Button */}
+        {/* Submit Buttons */}
         <button
           type="submit"
           className="w-full bg-blue-600 hover:bg-blue-700 transition duration-300 text-white font-semibold py-2 rounded-md"
