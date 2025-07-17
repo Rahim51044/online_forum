@@ -3,7 +3,7 @@
 // import useAuth from './useAuth';
 
 // const axiosSecure = axios.create({
-//     baseURL: `https://online-forum-server-eta.vercel.app`
+//     baseURL: `https://online-forum-server-eta.vercel.app/`
 // })
 
 // const useAxiosSecure = () => {
