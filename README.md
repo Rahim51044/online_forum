@@ -1,12 +1,49 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+Online Forum (Client)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+description  
+MERN Forum — a discussion forum with posts, comments, upvote/downvote, tags, and membership controls.
 
-## Expanding the ESLint configuration
+**Live project link:** `https://online-forum-661b8.web.app/` *(replace)*
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Technologies used:**  
+React, Express, MongoDB, Node.js, Tailwind CSS, React Router, Firebase Auth optional
+
+## README.md (paste into repo)
+```md
+Online Forum (Client)
+
+**Live:** https://your-live-link-forum.com
+
+## Overview
+A forum application (client-side) built with React. Users can create posts, comment, upvote/downvote, and search by tags. There is an admin panel for moderation and role management.
+
+## Screenshot
+![App Screenshot](./screenshot.png)
+
+## Main Technologies
+- React (Vite)
+- Tailwind CSS
+- React Router
+- Axios
+- Express + MongoDB (backend)
+- react-hook-form, react-select
+
+## Core Features
+- Create / Edit / Delete posts (users limited e.g., 5 posts unless premium)
+- Upvote / Downvote and popularity sorting
+- Comments on posts
+- Tagging system with auto-suggestions
+- Admin dashboard: manage users, announcements, reported posts
+
+## Dependencies
+- react, react-dom, react-router-dom
+- axios
+- react-hook-form, react-select
+- tailwindcss
+- firebase (optional for auth) or JWT libs
+
+## Environment Variables (Client)
+`.env.local` (Vite):
